@@ -1,0 +1,26 @@
+# Binaries
+bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# IDEs
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+
+# Go
+node_modules/
+vendor/
+
+# Environment
+.env
+
+# Temporary / Output
+output_photo.jpg
+tmp_find_jpeg.go
+*.log
