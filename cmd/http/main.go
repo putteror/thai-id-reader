@@ -38,11 +38,12 @@ func main() {
 	webHandler.SetupRoutes(router)
 
 	port := os.Getenv("PORT")
+	ip := os.Getenv("IP")
 	if port == "" {
 		port = "8080"
 	}
 	port = ":" + port
-	url := "http://localhost" + port
+	url := "http://" + ip + port
 
 	// 5. Open Browser automatically after a short delay
 	// go func() {
