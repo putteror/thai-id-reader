@@ -40,7 +40,7 @@ func main() {
 	port := os.Getenv("PORT")
 	ip := os.Getenv("IP")
 	if port == "" {
-		port = "8080"
+		port = "1300"
 	}
 	port = ":" + port
 	url := "http://" + ip + port
