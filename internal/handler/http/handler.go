@@ -20,6 +20,9 @@ func NewWebHandler(reader pcsc.Reader, idService service.IDCardService) *WebHand
 }
 
 func (h *WebHandler) SetupRoutes(router *gin.Engine) {
+	// 0. Use CORS Middleware
+	router.Use(CORSMiddleware())
+
 	// 1. Serve the Frontend HTML page
 	router.GET("/", func(c *gin.Context) {
 		c.Data(http.StatusOK, "text/html; charset=utf-8", []byte(indexHTML))
@@ -53,6 +56,23 @@ func (h *WebHandler) SetupRoutes(router *gin.Engine) {
 			"data":  card,
 		})
 	})
+}
+
+// CORSMiddleware handles Cross-Origin Resource Sharing (CORS)
+func CORSMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
+		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
+		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT, DELETE")
+
+		if c.Request.Method == "OPTIONS" {
+			c.AbortWithStatus(204)
+			return
+		}
+
+		c.Next()
+	}
 }
 
 // Simple embedded HTML for the UI
